@@ -1,0 +1,17 @@
+services:
+  web:
+    build: .
+    image: plantcare:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MODEL_PATH=/app/Model/best-plant-types-model-v12.ckpt
+      - USER_AGENT=Mozilla/5.0 (PlantCareBot/0.1)
+    volumes:
+      - ./Model:/app/Model:ro
+      - ./Photos:/app/Photos:ro
+      - ./data:/app/data
+
+    restart: unless-stopped
+
